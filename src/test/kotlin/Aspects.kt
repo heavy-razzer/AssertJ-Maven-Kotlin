@@ -23,6 +23,11 @@ object Aspects {
         println("Test started: ${getTestName(joinPoint)}")
     }
 
+    @Before("@annotation(io.qase.api.annotation.Step)")
+    fun stepMethod(joinPoint: JoinPoint) {
+        println("Perform stem method: ${getMethodName(joinPoint)}(): ${getMethodParameters(joinPoint)}")
+    }
+
     private fun getMethodName(joinPoint: JoinPoint): String {
         val methodSignature = joinPoint.signature as MethodSignature
         return methodSignature.name
@@ -32,5 +37,12 @@ object Aspects {
         val methodSignature = joinPoint.signature as MethodSignature
         val stepAnnotation = methodSignature.method.getAnnotation(Test::class.java)
         return stepAnnotation.description
+    }
+
+    private fun getMethodParameters(joinPoint: JoinPoint): ArrayList<String> {
+        val parametersList = arrayListOf<String>()
+        for (param in joinPoint.args)
+            parametersList.add(param.toString())
+        return parametersList
     }
 }
