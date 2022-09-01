@@ -23,7 +23,7 @@ object Aspects {
         println("Test started: ${getTestName(joinPoint)}")
     }
 
-    @Before("@annotation(io.qase.api.annotation.Step)")
+    @Before("@annotation(io.qase.api.annotation.Step) && execution(* steps.Steps.*(..))")
     fun stepMethod(joinPoint: JoinPoint) {
         println("Perform step method: ${getMethodName(joinPoint)}(): ${getMethodParameters(joinPoint)}")
     }
