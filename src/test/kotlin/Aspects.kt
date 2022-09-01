@@ -23,14 +23,21 @@ object Aspects {
         println("Test started: ${getTestName(joinPoint)}")
     }
 
-    @Before("@annotation(io.qase.api.annotation.Step) && execution(* steps.Steps.*(..))")
+    @Before("@annotation(io.qase.api.annotation.Step) && execution(* steps.*.*(..))")
     fun stepMethod(joinPoint: JoinPoint) {
-        println("Perform step method: ${getMethodName(joinPoint)}(): ${getMethodParameters(joinPoint)}")
+        println(
+            "${getParentClassName(joinPoint)}->${getMethodName(joinPoint)}(): "
+                    + "${getMethodParameters(joinPoint)}"
+        )
     }
 
     private fun getMethodName(joinPoint: JoinPoint): String {
         val methodSignature = joinPoint.signature as MethodSignature
         return methodSignature.name
+    }
+
+    private fun getParentClassName(joinPoint: JoinPoint): String {
+        return (joinPoint.signature as MethodSignature).declaringTypeName.split(".").last()
     }
 
     private fun getTestName(joinPoint: JoinPoint): String {
