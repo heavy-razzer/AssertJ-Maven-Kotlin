@@ -4,10 +4,10 @@ object Steps {
 
 
     fun printCaption() {
-        println("This this a simple test")
+        println("Step: This this a simple test")
     }
 
     fun printMessage() {
-        println("Testing in progress")
+        println("Step: Testing in progress")
     }
 }
