@@ -25,7 +25,7 @@ object Aspects {
 
     @Before("@annotation(io.qase.api.annotation.Step)")
     fun stepMethod(joinPoint: JoinPoint) {
-        println("Perform stem method: ${getMethodName(joinPoint)}(): ${getMethodParameters(joinPoint)}")
+        println("Perform step method: ${getMethodName(joinPoint)}(): ${getMethodParameters(joinPoint)}")
     }
 
     private fun getMethodName(joinPoint: JoinPoint): String {
